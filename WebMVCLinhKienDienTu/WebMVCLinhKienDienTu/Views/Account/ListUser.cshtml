@@ -1,0 +1,52 @@
+﻿
+@model WebDemo.Models.ListUserViewModel
+@{
+    int i = 0;
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Danh Sách Tài Khoản
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Quyền
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.users)
+                    {
+
+
+
+                        <tr>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @Model.roles[i]
+
+                            </td>
+                            <td>
+                                <a href="@Url.Action("DeleteRole","Account", new { email = @item.Email })">xóa</a>
+                            </td>
+
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+    </div>
+    <!-- /.panel-body -->
+</div>
