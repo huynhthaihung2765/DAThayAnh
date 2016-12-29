@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Xác thực email";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        Xác thực tài khoản thành công. Vui lòng @Html.ActionLink("nhấp vào đây để đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>
