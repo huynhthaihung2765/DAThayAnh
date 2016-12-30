@@ -8,7 +8,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using WebMVCLinhKienDienTu.Models;
+using WebDemo.Models;
 
 namespace WebMVCLinhKienDienTu.Controllers
 {

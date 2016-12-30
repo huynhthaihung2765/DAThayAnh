@@ -1,0 +1,100 @@
+﻿@model List<WebDemo.Models.CartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index","LinhKien")">Trang chủ</a></li>
+                <li class="active">Giỏ Hàng</li>
+            </ol>
+        </div>
+
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Sản phẩm</td>
+                        <td class="description"></td>
+                        <td class="price">Giá</td>
+                        <td class="quantity">Số lượng</td>
+                        <td class="total">Tổng</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="cart_product">
+                                <a href="@Url.Action("Details","LinhKien",new { id = item.Product.MaLK})"><img src="~/ImagesProduct/@item.Product.Anhbia" width="120px" alt=""></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="@Url.Action("Details","LinhKien",new { id = item.Product.MaLK})">@item.Product.TenLK</a></h4>
+                                <p>ID: @item.Product.MaLK</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@item.Product.Giaban.GetValueOrDefault(0).ToString("N0") VND</p>
+                            </td>
+                            <td class="cart_quantity">
+
+
+                                <input class="txtQuantity" id="Quantity" type="number" min="1" max="100" data-id="@item.Product.MaLK" value="@item.Quantity" size="2" />
+
+
+
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">@((item.Product.Giaban.GetValueOrDefault(0) * item.Quantity).ToString("N0")) VND</p>
+                            </td>
+
+                            <td class="cart_delete">
+                                @*<a href="#" class="btnUpdate" title="Cập nhật"><img src="~/Aress/User/images/cart/refresh-button.png" /></a>*@
+                                <a href="#" data-id="@item.Product.MaLK" class="btn-delete" title="Xóa"><i class="fa fa-times"></i></a>
+
+                            </td>
+                        </tr>
+                    }
+
+
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+
+<section id="do_action">
+    <div class="container">
+
+        <div class="col-sm-6">
+            <div class="total_area">
+                <ul>
+
+                    <li>Phí Ship <span>0 VND</span></li>
+
+                    <li>Tổng tiền <span>@ViewBag.total VND</span></li>
+                </ul>
+
+                <button id="btnContinue" class="btn btn-warning">Tiếp tục mua hàng</button>
+                @*<button class="btnUpdate btn btn-warning">Cập nhật giỏ hàng</button>*@
+                <button id="btnDeleteAll" class="btn btn-warning">Xoá giỏ hàng</button>
+                <a href="@Url.Action("Payment","Cart", new { flag = 0})" class="btn btn-warning">Đặt hàng</a>
+
+                <a href="@Url.Action("Payment","Cart", new { flag = 1})" class="btn btn-warning">Thanh toán</a>
+
+            </div>
+        </div>
+    </div>
+
+</section><!--/#do_action-->
+
+<script src="~/Scripts/controller/cartController.js"></script>
+<script src="~/Scripts/controller/LockQuantity.js"></script>

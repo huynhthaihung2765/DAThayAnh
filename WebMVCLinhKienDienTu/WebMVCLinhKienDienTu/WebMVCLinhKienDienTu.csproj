@@ -275,11 +275,15 @@
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\ThongBao.cshtml" />
+    <Content Include="Views\Cart\ThongBaoDatHang.cshtml" />
+    <Content Include="Views\Cart\ThongBaoGioHangTrong.cshtml" />
+    <Content Include="Views\Cart\ThongBaoPayOnline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CartController\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
