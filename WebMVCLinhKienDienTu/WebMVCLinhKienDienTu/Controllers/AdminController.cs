@@ -72,6 +72,25 @@ namespace WebDemo.Controllers
             ViewBag.MaNSX = new SelectList(db.NHASANXUATs.OrderBy(n => n.TenNSX), "MaNSX", "TenNSX",Edit.MaNSX);
             return View(Edit);
         }
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditLK(LINHKIEN lINHKIEN,HttpPostedFileBase fileUpload)
+        {
+            ViewBag.MaLoai = new SelectList(db.LOAILKs, "MaLLK", "TENLLK", lINHKIEN.MaLLK);
+            ViewBag.MaNSX = new SelectList(db.NHASANXUATs, "MaNSX", "TenNSX", lINHKIEN.MaNSX);
+            if (fileUpload==null)
+            {
+                ViewBag.Thongbao = "lỗi";
+                return View(lINHKIEN);
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(lINHKIEN).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ShowAllLK");
+            }
+            
+            return View(lINHKIEN);
+        }
     }
 }
