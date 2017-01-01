@@ -18,7 +18,20 @@ namespace WebDemo.Controllers
         public ActionResult Index()
         {
             var dONDATHANGs = db.DONDATHANGs.Include(d => d.AspNetUser);
-            return View(DONDATHANGs.ToList());
+            return View(dONDATHANGs.ToList());
         }
-	}
-}
+
+        // GET: DONDATHANGs/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
+            if (dONDATHANG == null)
+            {
+                return HttpNotFound();
+            }
+            return View(dONDATHANG);
+        }
