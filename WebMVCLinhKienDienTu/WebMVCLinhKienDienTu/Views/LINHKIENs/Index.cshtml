@@ -1,0 +1,144 @@
+﻿@using WebDemo.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<LINHKIEN>
+@helper Truncate(string input, int length)
+{
+if (input.Length < length)
+{
+        @input
+}
+else
+{
+        @input.Substring(0, length)<text>...</text>
+}
+}
+@{
+    ViewBag.Title = "ShowAllLK";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Linh Kiện</h1>
+        <h3><a class="btn-success" href="@Url.Action("Create","LINHKIENs")"> +Tạo Linh Kiện Mới</a></h3>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Danh Sách Thiết Bị
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="tìm kiếm theo tên" title="nhập tên cần tìm">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Mã Linh Kiện
+                                </th>
+                                <th>
+                                    Tên Linh Kiện
+                                </th>
+                                <th>
+                                    Giá Bán
+                                </th>
+                                <th>
+                                    Mô Tả
+                                </th>
+                                <th>
+                                    Ảnh Sản Phẩm
+                                </th>
+                                <th>
+                                    Ngày Cập Nhật
+                                </th>
+                                <th>
+                                    Số Lượng Tồn
+                                </th>
+                                <th>
+                                    Loại LK
+                                </th>
+                                <th>
+                                    Tên NSX
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaLK)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TenLK)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Giaban)
+                                    </td>
+                                    <td>
+                                        @Truncate(item.Mota, 100)
+                                    </td>
+                                    <td>
+                                        <img src="~/ImagesProduct/@item.Anhbia" width="120px"/>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ngaycapnhat)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Soluongton)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LOAILK.TENLLK)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NHASANXUAT.TenNSX)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaLK }) |
+                                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaLK }) |
+                                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaLK })
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+@*Tạo Liên Kết Các Trang*@
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount;
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName('tr');
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName('td')[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = '';
+      } else {
+        tr[i].style.display = 'none';
+      }
+    }
+  }
+}
+</script>
+
