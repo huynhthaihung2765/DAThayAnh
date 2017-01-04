@@ -35,7 +35,38 @@ namespace WebMVCLinhKienDienTu.Controllers
             }
             return View(dONDATHANG);
         }
+        // GET: DONDATHANGs/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
+            if (dONDATHANG == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", dONDATHANG.Id);
+            return View(dONDATHANG);
+        }
 
+        // POST: DONDATHANGs/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "MaDonHang,Dathanhtoan,Tinhtranggiaohang,Ngaydat,Ngaygiao,Id")] DONDATHANG dONDATHANG)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(dONDATHANG).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", dONDATHANG.Id);
+            return View(dONDATHANG);
+        }
 
     }
 }
