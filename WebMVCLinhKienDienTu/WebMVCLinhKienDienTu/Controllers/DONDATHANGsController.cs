@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebMVCLinhKienDienTu.Models;
 
-namespace WebDemo.Controllers
+namespace WebMVCLinhKienDienTu.Controllers
 {
     public class DONDATHANGsController : Controller
     {
