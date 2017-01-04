@@ -8,91 +8,96 @@ using System.Web;
 using System.Web.Mvc;
 using WebMVCLinhKienDienTu.Models;
 
-namespace WebDemo.Controllers
+namespace WebMVCLinhKienDienTu.Controllers
 {
-    public class DONDATHANGsController : Controller
+    public class LOAILKsController : Controller
     {
         private QLLINHKIENEntities db = new QLLINHKIENEntities();
 
-        // GET: DONDATHANGs
+        // GET: LOAILKs
         public ActionResult Index()
         {
-            var dONDATHANGs = db.DONDATHANGs.Include(d => d.AspNetUser);
-            return View(dONDATHANGs.ToList());
+            return View(db.LOAILKs.ToList());
         }
 
-        // GET: DONDATHANGs/Details/5
-        public ActionResult Details(int? id)
+      
+
+        // GET: LOAILKs/Create
+        public ActionResult Create()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
-            if (dONDATHANG == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dONDATHANG);
+            return View();
         }
 
-       
+        // POST: LOAILKs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "MaLLK,TENLLK")] LOAILK lOAILK)
+        {
+            if (ModelState.IsValid)
+            {
+                db.LOAILKs.Add(lOAILK);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-        // GET: DONDATHANGs/Edit/5
+            return View(lOAILK);
+        }
+
+        // GET: LOAILKs/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
-            if (dONDATHANG == null)
+            LOAILK lOAILK = db.LOAILKs.Find(id);
+            if (lOAILK == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", dONDATHANG.Id);
-            return View(dONDATHANG);
+            return View(lOAILK);
         }
 
-        // POST: DONDATHANGs/Edit/5
+        // POST: LOAILKs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDonHang,Dathanhtoan,Tinhtranggiaohang,Ngaydat,Ngaygiao,Id")] DONDATHANG dONDATHANG)
+        public ActionResult Edit([Bind(Include = "MaLLK,TENLLK")] LOAILK lOAILK)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dONDATHANG).State = EntityState.Modified;
+                db.Entry(lOAILK).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", dONDATHANG.Id);
-            return View(dONDATHANG);
+            return View(lOAILK);
         }
 
-        // GET: DONDATHANGs/Delete/5
+        // GET: LOAILKs/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
-            if (dONDATHANG == null)
+            LOAILK lOAILK = db.LOAILKs.Find(id);
+            if (lOAILK == null)
             {
                 return HttpNotFound();
             }
-            return View(dONDATHANG);
+            return View(lOAILK);
         }
 
-        // POST: DONDATHANGs/Delete/5
+        // POST: LOAILKs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            DONDATHANG dONDATHANG = db.DONDATHANGs.Find(id);
-            db.DONDATHANGs.Remove(dONDATHANG);
+            LOAILK lOAILK = db.LOAILKs.Find(id);
+            db.LOAILKs.Remove(lOAILK);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
